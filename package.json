@@ -10,10 +10,11 @@
   "license": "MIT",
   "dependencies": {
     "discord.io": "^2.5.1",
+    "sqlite": "^2.8.0",
     "winston": "^2.3.1"
   },
-  "repository" :{
-    "type" : "git",
-    "url" : "https://github.com/zentarul/duckduckbot.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zentarul/duckduckbot.git"
   }
 }
