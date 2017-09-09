@@ -4,19 +4,7 @@
 //First of all, we need to load the dependencies we downloaded!
 const logger = require("winston");
 const Discordbot = require('discord.io');
-const db = require('sqlite');
-const fs = require('fs');
-
-if (!fs.existsSync('./db')) {
-  fs.mkdir('./db');
-}
-
-db.open('./db/persist.sqlite', { Promise })
-  .then(() => db.run('CREATE TABLE IF NOT EXISTS Users(user_id INTEGER PRIMARY KEY, user_name TEXT)'))
-  .catch((err) => {
-    console.log('error creating the db');
-    console.log(err.message);
-  });
+const DataManager = require('./datamanager');
 
 //Let's change some settings!
 logger.remove(logger.transports.Console);
@@ -27,7 +15,7 @@ logger.level = 'debug';
 
 //Here we create our bot variable, this is what we're going to use to communicate to discord.
 const bot = new Discordbot.Client({
-  autorun: true,
+  autorun: false,
   token: "MzE4OTQ1ODk4MTE1NzYwMTI5.DA52LQ.YqZ4fVBJINKAxDDUTq0jWJVRjDo"
 });
 
@@ -35,6 +23,16 @@ bot.on("ready", function (rawEvent) {
   logger.info("Connected!");
   logger.info("Logged in as: ");
   logger.info(bot.username + " - (" + bot.id + ")");
+  let getInviteURL = () => {
+    if (bot.bot) {
+      if (bot.inviteURL) {
+        logger.info(`Invite URL: ${bot.inviteURL}`);
+      } else {
+        setTimeout(getInviteURL, 1000);
+      }
+    }
+  };
+  getInviteURL();
 });
 
 function roll()
@@ -110,3 +108,5 @@ bot.on("message", function (user, userID, channelID, message, rawEvent) {
     }
   }
 });
+
+bot.connect();
