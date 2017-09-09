@@ -43,9 +43,9 @@ function roll()
 //In this function we're going to add our commands.
 bot.on("message", function (user, userID, channelID, message, rawEvent) {
   if (message.substring(0, 1) == "!") {
-    let arguments = message.substring(1).split(" ");
-    let command = arguments[0];
-    arguments = arguments.splice(1);
+    let args = message.substring(1).split(" ");
+    let command = args[0];
+    args = args.splice(1);
 
     if (command == "ping") {//If the user posts '!ping' we'll do something!
       bot.sendMessage({ //We're going to send a message!
@@ -53,9 +53,9 @@ bot.on("message", function (user, userID, channelID, message, rawEvent) {
         message : "Pong!"
       });
     }
-    else if (command == "roll" && arguments.length == 1) {
+    else if (command == "roll" && args.length == 1) {
       let numbers = [];
-      let rollCount = parseInt(arguments[0]);
+      let rollCount = parseInt(args[0]);
       if (rollCount > 0)
       {
         console.log(`${user} (${userID}) on channel ${channelID} is rolling`);
