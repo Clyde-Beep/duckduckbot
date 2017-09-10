@@ -81,6 +81,20 @@ class AdminServer {
       res.json(channels);
     });
 
+    this.webServer.get('/api/users', (req, res) => {
+      let users = [];
+      for (let userId in this.client.users) {
+        let user = this.client.users[userId];
+        let userInfo = {};
+        userInfo.id = user.id;
+        userInfo.name = user.username;
+        userInfo.discriminator = user.discriminator;
+        userInfo.bot = user.bot;
+        users.push(userInfo);
+      }
+      res.json(users);
+    });
+
     this.webServer.get('*', (req, res) => {
       if (req.headers.host === hostName) {
         req.headers.host = 'localhost';

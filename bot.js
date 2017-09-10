@@ -25,7 +25,6 @@ bot.on("ready", function (rawEvent) {
   logger.info("Connected!");
   logger.info("Logged in as: ");
   logger.info(bot.username + " - (" + bot.id + ")");
-  console.log(bot);
   let getInviteURL = () => {
     if (bot.bot) {
       if (bot.inviteURL) {
