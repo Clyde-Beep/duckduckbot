@@ -10,6 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "discord.io": "^2.5.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "http-proxy": "^1.16.2",
     "sqlite": "^2.8.0",
     "winston": "^2.3.1"
   },

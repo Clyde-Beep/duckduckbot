@@ -1,10 +1,8 @@
-// use this to invite bot
-// https://discordapp.com/oauth2/authorize?client_id=318945898115760129&scope=bot&permissions=0
-
-//First of all, we need to load the dependencies we downloaded!
+require('dotenv').config();
 const logger = require("winston");
 const Discordbot = require('discord.io');
 const DataManager = require('./datamanager');
+const AdminServer = require('./adminserver');
 
 //Let's change some settings!
 logger.remove(logger.transports.Console);
@@ -13,16 +11,21 @@ logger.add(logger.transports.Console, {
 });
 logger.level = 'debug';
 
+const dataManager = new DataManager();
+
 //Here we create our bot variable, this is what we're going to use to communicate to discord.
 const bot = new Discordbot.Client({
   autorun: false,
-  token: "MzE4OTQ1ODk4MTE1NzYwMTI5.DA52LQ.YqZ4fVBJINKAxDDUTq0jWJVRjDo"
+  token: process.env.DUCK_AUTH_TOKEN 
 });
+
+const adminServer = new AdminServer(bot, dataManager);
 
 bot.on("ready", function (rawEvent) {
   logger.info("Connected!");
   logger.info("Logged in as: ");
   logger.info(bot.username + " - (" + bot.id + ")");
+  console.log(bot);
   let getInviteURL = () => {
     if (bot.bot) {
       if (bot.inviteURL) {
@@ -110,3 +113,4 @@ bot.on("message", function (user, userID, channelID, message, rawEvent) {
 });
 
 bot.connect();
+adminServer.start();
