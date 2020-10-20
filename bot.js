@@ -50,7 +50,7 @@ bot.on("message", function (user, userID, channelID, message, rawEvent) {
     args = args.splice(1);
 
     if (command == "ping") {//If the user posts '!ping' we'll do something!
-      bot.sendMessage({ //We're going to send a message!
+      bot.sendMessage({ //We're going to send a message!!
         to : channelID,
         message : "Pong!"
       });
